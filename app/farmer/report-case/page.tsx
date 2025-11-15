@@ -213,9 +213,11 @@ export default function ReportCasePage() {
               </Button>
               {imagePreview && (
                 <div className="relative">
-                  <img
+                  <Image
                     src={imagePreview}
                     alt="Symptom preview"
+                    width={800}
+                    height={600}
                     className="w-full rounded-12"
                   />
                   <button

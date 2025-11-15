@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { AppointmentCard } from '@/components/cards/AppointmentCard';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
@@ -12,11 +12,7 @@ export default function VetRequestsPage() {
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<'all' | 'pending' | 'confirmed' | 'completed' | 'cancelled'>('pending');
 
-  useEffect(() => {
-    loadAppointments();
-  }, [filter]);
-
-  const loadAppointments = async () => {
+  const loadAppointments = React.useCallback(async () => {
     try {
       const {
         data: { user },
@@ -43,7 +39,11 @@ export default function VetRequestsPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [filter]);
+
+  useEffect(() => {
+    loadAppointments();
+  }, [loadAppointments]);
 
   const handleAction = async (appointment: Appointment, action: 'accept' | 'decline' | 'complete') => {
     try {

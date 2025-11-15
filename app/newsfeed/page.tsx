@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Card } from '@/components/ui/Card';
 import { AlertBanner } from '@/components/AlertBanner';
 import { Badge } from '@/components/ui/Badge';
@@ -19,10 +19,6 @@ export default function NewsfeedPage() {
   useEffect(() => {
     loadAlerts();
   }, []);
-
-  useEffect(() => {
-    filterAlerts();
-  }, [alerts, searchTerm, severityFilter]);
 
   const loadAlerts = async () => {
     try {
@@ -83,7 +79,7 @@ export default function NewsfeedPage() {
     }
   };
 
-  const filterAlerts = () => {
+  const filterAlerts = React.useCallback(() => {
     let filtered = [...alerts];
 
     if (searchTerm) {
@@ -99,7 +95,11 @@ export default function NewsfeedPage() {
     }
 
     setFilteredAlerts(filtered);
-  };
+  }, [alerts, searchTerm, severityFilter]);
+
+  useEffect(() => {
+    filterAlerts();
+  }, [filterAlerts]);
 
   if (loading) {
     return (

@@ -36,10 +36,12 @@ export default function FarmerDashboard() {
     }
 
     return () => {
-      // Cleanup channels
-      channelsRef.current.forEach((channel) => channel.unsubscribe());
+      // Cleanup channels - capture current value
+      const channels = channelsRef.current;
+      channels.forEach((channel) => channel.unsubscribe());
     };
-  }, [userIdRef.current]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const loadDashboardData = async () => {
     try {
@@ -151,7 +153,7 @@ export default function FarmerDashboard() {
     <div>
       <div className="mb-8">
         <h1 className="text-4xl font-bold text-primary mb-2">Farmer Dashboard</h1>
-        <p className="text-gray-600">Welcome back! Here's an overview of your farm.</p>
+        <p className="text-gray-600">Welcome back! Here&apos;s an overview of your farm.</p>
       </div>
 
       {/* Stats Grid */}

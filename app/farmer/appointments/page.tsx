@@ -11,11 +11,7 @@ export default function AppointmentsPage() {
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<'all' | 'pending' | 'confirmed' | 'completed' | 'cancelled'>('all');
 
-  useEffect(() => {
-    loadAppointments();
-  }, []);
-
-  const loadAppointments = async () => {
+  const loadAppointments = React.useCallback(async () => {
     try {
       const {
         data: { user },
@@ -42,11 +38,11 @@ export default function AppointmentsPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [filter]);
 
   useEffect(() => {
     loadAppointments();
-  }, [filter]);
+  }, [loadAppointments]);
 
   const handleAction = async (appointment: Appointment, action: string) => {
     if (action === 'cancel') {

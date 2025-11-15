@@ -4,6 +4,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { StatsCard } from '@/components/cards/StatsCard';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
+import { Badge } from '@/components/ui/Badge';
 import { Calendar, Users, CheckCircle, Clock, AlertCircle } from 'lucide-react';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabase/client';
@@ -36,10 +37,12 @@ export default function VetDashboard() {
     }
 
     return () => {
-      // Cleanup channels
-      channelsRef.current.forEach((channel) => channel.unsubscribe());
+      // Cleanup channels - capture current value
+      const channels = channelsRef.current;
+      channels.forEach((channel) => channel.unsubscribe());
     };
-  }, [userIdRef.current]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const loadDashboardData = async () => {
     try {

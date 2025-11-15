@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Card } from '@/components/ui/Card';
 import { AudioPlayer } from '@/components/ui/AudioPlayer';
 import { Input } from '@/components/ui/Input';
@@ -63,11 +63,7 @@ export default function LearningHubPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('All Categories');
 
-  useEffect(() => {
-    filterLessons();
-  }, [searchTerm, categoryFilter, lessons]);
-
-  const filterLessons = () => {
+  const filterLessons = React.useCallback(() => {
     let filtered = [...lessons];
 
     if (searchTerm) {
@@ -83,7 +79,11 @@ export default function LearningHubPage() {
     }
 
     setFilteredLessons(filtered);
-  };
+  }, [lessons, searchTerm, categoryFilter]);
+
+  useEffect(() => {
+    filterLessons();
+  }, [filterLessons]);
 
   return (
     <div className="min-h-screen bg-cream py-12">

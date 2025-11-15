@@ -31,7 +31,7 @@ export default function AboutPage() {
         <div className="text-center mb-16">
           <h1 className="text-5xl font-bold text-primary mb-4">About VetLink</h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Empowering Sierra Leone's agricultural community through digital innovation
+            Empowering Sierra Leone&apos;s agricultural community through digital innovation
           </p>
         </div>
 

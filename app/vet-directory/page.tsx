@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { VetCard } from '@/components/cards/VetCard';
 import { Input } from '@/components/ui/Input';
 import { Textarea } from '@/components/ui/Textarea';
@@ -66,10 +66,6 @@ export default function VetDirectoryPage() {
     loadVets();
   }, []);
 
-  useEffect(() => {
-    filterVets();
-  }, [vets, searchTerm, districtFilter, specializationFilter]);
-
   const loadVets = async () => {
     try {
       const { data, error } = await supabase
@@ -88,7 +84,7 @@ export default function VetDirectoryPage() {
     }
   };
 
-  const filterVets = () => {
+  const filterVets = React.useCallback(() => {
     let filtered = [...vets];
 
     if (searchTerm) {
@@ -108,7 +104,11 @@ export default function VetDirectoryPage() {
     }
 
     setFilteredVets(filtered);
-  };
+  }, [vets, searchTerm, districtFilter, specializationFilter]);
+
+  useEffect(() => {
+    filterVets();
+  }, [filterVets]);
 
   const handleBook = (vet: Veterinarian) => {
     setSelectedVet(vet);

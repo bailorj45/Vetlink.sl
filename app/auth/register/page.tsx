@@ -181,7 +181,7 @@ export default function RegisterPage() {
                 : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
             }`}
           >
-            I'm a Farmer
+            I&apos;m a Farmer
           </button>
           <button
             type="button"
@@ -192,7 +192,7 @@ export default function RegisterPage() {
                 : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
             }`}
           >
-            I'm a Veterinarian
+            I&apos;m a Veterinarian
           </button>
         </div>
 
